@@ -22,27 +22,30 @@ namespace TicTacToe
         static void Main()
         {
             Spielfeld
-            // ausgabe begrüssung
-            // ausgabe Spieler X bitte name eingeben
-            // eingabe von tastatur lesen und abspeichern
-            // ausgabe Spieler Y bitte name eingeben
-            // eingabe von tastatur lesen und abspeichern
-            // wiederholen
-            //   spiel auf anfangszustand setzen
-            //   wiederholen
-            //      spielfeld anzeigen
-            //      wiederholen
-            //          ausgabe Bitte feld auswählen
-            //          eingabe des feldes lesen und abspeichern
-            //          zug durchführen und ergebnis abspeichern
-            //      solange Spielerzug ungültig
-            //   solange Spielerzug gültig
-            //   wenn spielerzug unentschieden
-            //      ausgabe unentschieden
-            //   andernfalls
-            //      ausgabe aktueller spieler hat gewonnen
-            //   ausgabe möchten sie noch ein spiel?
-            // solange y von der tastatur gelesen wurde
+            Console.WriteLine("Willkommen bei TicTacToe!"); // ausgabe begrüssung
+            Console.WriteLine("Spieler X - Bitte Namen eingeben: "); // ausgabe Spieler X bitte name eingeben
+            string Player1 = Console.ReadLine(); // eingabe von tastatur lesen und abspeichern
+            Console.WriteLine("Spieler Y - Bitte Namen eingeben: ");// ausgabe Spieler Y bitte name eingeben
+            string Player2 = Console.ReadLine(); // eingabe von tastatur lesen und abspeichern  
+            do // wiederholen
+            {
+                //   spiel auf anfangszustand setzen
+                do //   wiederholen
+                {
+                    //      spielfeld anzeigen
+                    do //      wiederholen
+                    {
+                        //          ausgabe Bitte feld auswählen
+                        //          eingabe des feldes lesen und abspeichern
+                        //          zug durchführen und ergebnis abspeichern
+                    } while (true); //      solange Spielerzug ungültig
+                } while (true); //   solange Spielerzug gültig
+                //   wenn spielerzug unentschieden
+                //      ausgabe unentschieden
+                //   andernfalls
+                //      ausgabe aktueller spieler hat gewonnen
+                //   ausgabe möchten sie noch ein spiel?
+            } while (true);// solange y von der tastatur gelesen wurde
 
         }
     }
