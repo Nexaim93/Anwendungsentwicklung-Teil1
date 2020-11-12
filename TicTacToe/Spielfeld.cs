@@ -16,7 +16,7 @@ namespace TicTacToe
             //      an koordinaten ein X schreiben
             // andernfalls
             //      an koordinaten ein O schreiben
-            // wenn in einer der spalten 3 gleiche oder in einer der zeilen 3 gleiche oder in einer der beiden diagonalen 3 gleiche
+            if(// wenn in einer der spalten 3 gleiche oder in einer der zeilen 3 gleiche oder in einer der beiden diagonalen 3 gleiche
             //      Methodenende und rückgabe von Win
             // wenn zuganzahl gleich  9
             //      Methodenende und rückgabe von Tie

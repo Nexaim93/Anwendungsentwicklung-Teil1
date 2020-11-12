@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 
 namespace TicTacToe
 {
@@ -25,8 +26,10 @@ namespace TicTacToe
             Console.WriteLine("Willkommen bei TicTacToe!"); // ausgabe begrüssung
             Console.WriteLine("Spieler X - Bitte Namen eingeben: "); // ausgabe Spieler X bitte name eingeben
             string Player1 = Console.ReadLine(); // eingabe von tastatur lesen und abspeichern
+            Console.Clear();
             Console.WriteLine("Spieler Y - Bitte Namen eingeben: ");// ausgabe Spieler Y bitte name eingeben
             string Player2 = Console.ReadLine(); // eingabe von tastatur lesen und abspeichern  
+            Console.Clear();
             do // wiederholen
             {
                 //   spiel auf anfangszustand setzen
