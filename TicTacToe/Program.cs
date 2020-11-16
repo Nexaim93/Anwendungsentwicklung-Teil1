@@ -7,18 +7,32 @@ namespace TicTacToe
     {
         static void Draw()
         {
-            // reihe zählen von 0 solange kleiner als 3
-            //    spalte zählen von 0 solange kleiner als 3
-            //      wenn im spielfeld an koordinate reihe,spalte leer steht
-            //          ausgabe leerzeichen
-            //      wenn im spielfeld an koordinate reihe,spalte X steht
-            //          ausgabe eines X
-            //      wenn im spielfeld an koordinate reihe,spalte O steht
-            //          ausgabe eines O
-            //      wenn im spielfeld an koordinate reihe,spalte hint steht
-            //          ausgabe eines leerzeichens mit anderer hintergrundfarbe
-            //    ende zählen spalte
-            // ende zählen reihe
+            for (int reihe = 0; reihe < 3; reihe++) // reihe zählen von 0 solange kleiner als 3
+            {
+                for (int spalte = 0; spalte < 3; spalte++) //    spalte zählen von 0 solange kleiner als 3
+                {
+                    if () // wenn im spielfeld an koordinate reihe,spalte leer steht
+                    {
+
+                    }
+                    return ; //          ausgabe leerzeichen
+                    if () // wenn im spielfeld an koordinate reihe,spalte X steht
+                    {
+
+                    }
+                    return; //          ausgabe eines X
+                    if () // wenn im spielfeld an koordinate reihe,spalte O steht
+                    {
+
+                    }
+                    return; //          ausgabe eines O
+                    if () // wenn im spielfeld an koordinate reihe,spalte hint steht
+                    {
+
+                    }
+                    return; //          ausgabe eines leerzeichens mit anderer hintergrundfarbe
+                }//    ende zählen spalte
+            }// ende zählen reihe
         }
         static void Main()
         {
