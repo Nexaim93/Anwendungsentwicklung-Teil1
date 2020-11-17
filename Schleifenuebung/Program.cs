@@ -43,6 +43,7 @@ namespace Schleifenuebung
                 Versuche++;
             }
             PrintLotto(Liste1, Liste2, MyNumbers, MySpecial, Treffer, Versuche); // Lottozahlen Ausgeben !
+            Console.ReadLine();
 
             
             //TODO: Ausgabe des arrays und der zählvariable
