@@ -8,39 +8,122 @@ namespace Schleifenuebung
         static void Main(string[] args)
         {
             // Wortschleife();
-            for (int i = 0; i < 20; i++)
+
+
+            /*for (int i = 0; i < 1; i++) //TODO: Schleife umbauen das sie 10 sekunden lang läuft (DateTime.Now)
             {
-                List<int> Liste1 = new List<int>();
-                List<int> Liste2 = new List<int>();
+                List<byte> Liste1 = new List<byte>();
+                List<byte> Liste2 = new List<byte>();
 
                 EuroJackpot(Liste1, Liste2);
                 PrintLotto(Liste1, Liste2);
+            }*/
+
+            //TODO: 1x Lottoergebnis ziehen (gegen das vergleichen wir unsere scheine)
+            //TODO: Ergebnisarray der länge 8 erstellen.
+            List<byte> Liste1 = new List<byte>(); // Liste für Numbers
+            List<byte> Liste2 = new List<byte>(); // Liste für Special
+            List<byte> MyNumbers = new List<byte>(); // Liste für MyNumbers
+            List<byte> MySpecial = new List<byte>(); // Liste für MySpecial
+            DateTime Startzeit = DateTime.Now; // Aktuelle SystemZeit Sichern !
+            int[] Treffer = new int[8]; // erstelle Treffer mit einer Range von 8
+
+            byte[] MeineLottoZahlen = { 5, 17, 21, 37, 38 };
+            MyNumbers.AddRange(MeineLottoZahlen);
+
+            byte[] MeineSpecialZahlen = { 1, 4 };
+            MySpecial.AddRange(MeineSpecialZahlen);
+
+
+            int Versuche = 0;
+            while ((DateTime.Now - Startzeit).TotalSeconds <= 1) // Schleife umgebaut das sie 10 sekunden lang läuft (DateTime.Now)
+            {
+                EuroJackpot(Liste1, Liste2); // Lottzahlen Generieren !
+                Treffer[CompareLotto(Liste1, Liste2, MyNumbers, MySpecial)]++;
+                Versuche++;
             }
+            PrintLotto(Liste1, Liste2, MyNumbers, MySpecial, Treffer, Versuche); // Lottozahlen Ausgeben !
+
+            
+            //TODO: Ausgabe des arrays und der zählvariable
         }
-        static void PrintLotto(List<int> Numbers, List<int> Special)
+
+        //TODO: Methode bauen welche einen Lottoschein mit dem Lottoergebnis vergleicht
+        //      rückgabe soll die anzahl der korrekten zahlen sein (List.contains)
+        static int CompareLotto(List<byte> Numbers, List<byte> Special, List<byte> MyNumbers, List<byte> MySpecial)
         {
-            Console.Write("EuroJackpot Zahlen:");
-            foreach (var item in Numbers)
+
+            int Richtige = 0; // ergebnisvariable erstellen
+            foreach (var Gezogen in Numbers) // schleife welche durch die gesamte Special-Liste geht
+            {
+                foreach (var Eingetragen in MyNumbers) // schleife welche durch die gesamte PrePickedSpecial-Liste geht
+                {
+                    if (Gezogen == Eingetragen) // wenn element der äusseren schleife und der inneren identisch sind
+                    {
+                        Richtige++; // wenn element der äusseren schleife und der inneren identisch sind
+                        break;
+                    }
+                }
+            }
+            foreach (var Gezogen in Special) // schleife welche durch die gesamte Special-Liste geht
+            {
+                foreach (var Eingetragen in MySpecial) // schleife welche durch die gesamte PrePickedSpecial-Liste geht
+                {
+                    if (Gezogen == Eingetragen) // wenn element der äusseren schleife und der inneren identisch sind
+                    {
+                        Richtige++; // wenn element der äusseren schleife und der inneren identisch sind
+                        break;
+                    }
+                }
+            }
+            return Richtige;// rückgabe ergebnisvariable
+        }
+        static void PrintLotto(List<byte> Numbers, List<byte> Special, List<byte> MyNumbers, List<byte> MySpecial, Array Treffer, int Versuche)
+        {
+            int hit = 0;
+            foreach (var item in Numbers) 
             {
                 Console.Write("{0,3}", item);
             }
-            Console.Write(" Zusatz:");
             foreach (var item in Special)
             {
+                Console.Write("{0,2}", item);
+            }
+            Console.Write(": EuroJackpot (Letzte Ausgegebene Zahlen)");
+            Console.WriteLine();
+            foreach (var item in MyNumbers)
+            {
                 Console.Write("{0,3}", item);
             }
+            foreach (var item in MySpecial)
+            {
+                Console.Write("{0,2}", item);
+            }
+            Console.Write(": Meine LottoZahlen");
             Console.WriteLine();
+            foreach (var item in Treffer)
+            {
+                Console.Write("{0} ", hit , hit++);
+                Console.WriteLine("Richtige: {0} ", item);
+            }
+            Console.WriteLine();
+            Console.WriteLine("Versuche: {0}", Versuche.ToString("0,00"));
+            Console.WriteLine("Enspricht: " + (2.5*Versuche).ToString("0,00") + " Euro");
         }
-        static void EuroJackpot(List<int> Numbers, List<int> Special)
+        static void EuroJackpot(List<byte> Numbers, List<byte> Special)
         {
 
             //Eurojackpot
             // 5x 1 - 50 
             // 2x 1 - 10
             Random rndGen = new Random();
+
+            Numbers.Clear();
+            Special.Clear();
+
             while (Numbers.Count < 5)
             {
-                int newNumber = rndGen.Next(1, 51);
+                byte newNumber = (byte)rndGen.Next(1, 51);
                 bool insertAllowed = true;
 
                 foreach (var item in Numbers)
@@ -61,7 +144,7 @@ namespace Schleifenuebung
 
             while (Special.Count < 2)
             {
-                int newNumber = rndGen.Next(1, 11);
+                byte newNumber = (byte)rndGen.Next(1, 11);
                 bool insertAllowed = true;
 
                 foreach (var item in Special)
