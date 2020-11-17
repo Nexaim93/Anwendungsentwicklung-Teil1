@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taschenrechner", "Taschenre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToe_Test", "TicTacToe_Test\TicTacToe_Test.csproj", "{6B6F6FF0-E635-46CB-B2B5-D28CB6A726DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sortieren", "Sortieren\Sortieren.csproj", "{81DB19D4-52B7-480B-80DA-FF4EBC678F6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sortieren", "Sortieren\Sortieren.csproj", "{81DB19D4-52B7-480B-80DA-FF4EBC678F6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schleifenuebung", "Schleifenuebung\Schleifenuebung.csproj", "{F40CEB04-87D2-490E-BF09-932340946162}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{81DB19D4-52B7-480B-80DA-FF4EBC678F6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81DB19D4-52B7-480B-80DA-FF4EBC678F6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81DB19D4-52B7-480B-80DA-FF4EBC678F6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F40CEB04-87D2-490E-BF09-932340946162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F40CEB04-87D2-490E-BF09-932340946162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F40CEB04-87D2-490E-BF09-932340946162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F40CEB04-87D2-490E-BF09-932340946162}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
