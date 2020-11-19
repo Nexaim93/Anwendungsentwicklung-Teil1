@@ -1,5 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+using System.ComponentModel;
+using System.Data;
+using System.IO.Ports;
 
 namespace Schleifenuebung
 {
@@ -9,18 +14,139 @@ namespace Schleifenuebung
         {
             // Wortschleife();
 
+            /*string Vorgeschlagen = null;
+            string NeuGenerieren = null;
+            string Eigen = null;
+            string Close = null;*/
+            String TextWillkommen = "Herzlich Willkommen bei Georgi's EuroJackpor-Automat";
+            String TextVorgehen = "Wähle bitte:";
+            ConsoleColor Safe;
+            Random rndColor = new Random();
+            List<ConsoleColor> VerboteneFarben = new List<ConsoleColor>();    
 
-            /*for (int i = 0; i < 1; i++) //TODO: Schleife umbauen das sie 10 sekunden lang läuft (DateTime.Now)
+            Console.CursorVisible = false;
+            String[] Logo = new string[] {"######## ##     ## ########   #######        ##    ###     ######  ##    ## ########   #######  ######## ",
+                                          "##       ##     ## ##     ## ##     ##       ##   ## ##   ##    ## ##   ##  ##     ## ##     ##    ##    ",
+                                          "##       ##     ## ##     ## ##     ##       ##  ##   ##  ##       ##  ##   ##     ## ##     ##    ##    ",
+                                          "######   ##     ## ########  ##     ##       ## ##     ## ##       #####    ########  ##     ##    ##    ",
+                                          "##       ##     ## ##   ##   ##     ## ##    ## ######### ##       ##  ##   ##        ##     ##    ##    ",
+                                          "##       ##     ## ##    ##  ##     ## ##    ## ##     ## ##    ## ##   ##  ##        ##     ##    ##    ",
+                                          "########  #######  ##     ##  #######   ######  ##     ##  ######  ##    ## ##         #######     ##    "};
+
+            for (int i = 0; i < Logo.Length; i++)
             {
-                List<byte> Liste1 = new List<byte>();
-                List<byte> Liste2 = new List<byte>();
+                do
+                {
+                    Safe = (ConsoleColor)rndColor.Next(1, 16);
+                }
+                while (VerboteneFarben.Contains(Safe));
+                VerboteneFarben.Add(Safe);
+                Console.ForegroundColor = Safe;
 
-                EuroJackpot(Liste1, Liste2);
-                PrintLotto(Liste1, Liste2);
-            }*/
+                Console.SetCursorPosition(Console.WindowWidth/2 - Logo[0].Length/2, 1 +i);
+                Console.Write(Logo[i]);
+                System.Threading.Thread.Sleep(100);
+            }
+            Console.ResetColor();
+            System.Threading.Thread.Sleep(500);
 
-            //TODO: 1x Lottoergebnis ziehen (gegen das vergleichen wir unsere scheine)
-            //TODO: Ergebnisarray der länge 8 erstellen.
+
+            Typewrite(TextWillkommen,1);
+            Console.WriteLine("\n");
+            System.Threading.Thread.Sleep(500);
+            Typewrite(TextVorgehen,2);
+            System.Threading.Thread.Sleep(500);
+
+            int SelectedButton = 0;
+            bool Menu = true;
+
+            String[] ButtonTexte = new String[] {"Generierten Lottschein nehmen","Neu Generieren","Eigenen Lottoschein Ausfüllen","Schliessen"};
+            while (Menu)
+            {
+                for (int i = 0; i < ButtonTexte.Length; i++)
+                {
+                    Console.SetCursorPosition(Console.WindowWidth / 2 - ButtonTexte[i].Length/2, 12 +i);
+                    if (i == SelectedButton)
+                    {
+                        Console.BackgroundColor = ConsoleColor.DarkBlue;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write(ButtonTexte[i]);
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write(ButtonTexte[i]);
+                        Console.ResetColor();
+                    }
+                }
+                switch (Console.ReadKey().Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        if (SelectedButton > 0)
+                        {
+                            --SelectedButton;
+                        }
+                        else
+                        {
+                            SelectedButton = ButtonTexte.Length -1;
+                        }
+                        break;
+                    case ConsoleKey.DownArrow:
+                        if (SelectedButton < ButtonTexte.Length -1)
+                        {
+                            ++SelectedButton;
+                        }
+                        else
+                        {
+                            SelectedButton = 0;
+                        }
+                        break;
+                    case ConsoleKey.Enter:
+                        Console.SetCursorPosition(0, 15);
+                        switch (SelectedButton)
+                        {
+                            case 0:
+                                Console.WriteLine("test 1");
+                                break;
+                            case 1:
+                                Console.WriteLine("test 2");
+                                break;
+                            case 2:
+                                Console.WriteLine("test 3");
+                                break;
+                            case 3:
+                                Menu = false;                              
+                                break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            Console.Clear();
+            Typewrite("Byyye...........",1);
+            System.Threading.Thread.Sleep(500);
+            Console.Clear();
+
+            for (int i = 0; i < Logo.Length; i++)
+            {
+                do
+                {
+                    Safe = (ConsoleColor)rndColor.Next(1, 16);
+                }
+                while (VerboteneFarben.Contains(Safe));
+                VerboteneFarben.Add(Safe);
+                Console.ForegroundColor = Safe;
+
+                Console.SetCursorPosition(Console.WindowWidth/2 - Logo[0].Length/2, 1 + i);
+                Console.WriteLine(Logo[i]);
+                System.Threading.Thread.Sleep(100);
+            }
+            Console.ResetColor();
+
+
             List<byte> Liste1 = new List<byte>(); // Liste für Numbers
             List<byte> Liste2 = new List<byte>(); // Liste für Special
             List<byte> MyNumbers = new List<byte>(); // Liste für MyNumbers
@@ -34,7 +160,7 @@ namespace Schleifenuebung
             byte[] MeineSpecialZahlen = { 1, 4 };
             MySpecial.AddRange(MeineSpecialZahlen);
 
-
+            /*
             int Versuche = 0;
             while ((DateTime.Now - Startzeit).TotalSeconds <= 1) // Schleife umgebaut das sie 10 sekunden lang läuft (DateTime.Now)
             {
@@ -44,13 +170,22 @@ namespace Schleifenuebung
             }
             PrintLotto(Liste1, Liste2, MyNumbers, MySpecial, Treffer, Versuche); // Lottozahlen Ausgeben !
             Console.ReadLine();
+            */
 
-            
             //TODO: Ausgabe des arrays und der zählvariable
         }
 
         //TODO: Methode bauen welche einen Lottoschein mit dem Lottoergebnis vergleicht
         //      rückgabe soll die anzahl der korrekten zahlen sein (List.contains)
+        static void Typewrite(string message, int Y)
+        {
+            Console.SetCursorPosition(Console.WindowWidth/2 - message.Length/2, 8 +Y);
+            for (int i = 0; i < message.Length; i++)
+            {
+                Console.Write(message[i]); // Buchtabe für Buchtabe schreiben !
+                System.Threading.Thread.Sleep(10); // Geschwindigkeit des Schreibens
+            }
+        }
         static int CompareLotto(List<byte> Numbers, List<byte> Special, List<byte> MyNumbers, List<byte> MySpecial)
         {
 
@@ -82,7 +217,7 @@ namespace Schleifenuebung
         static void PrintLotto(List<byte> Numbers, List<byte> Special, List<byte> MyNumbers, List<byte> MySpecial, Array Treffer, int Versuche)
         {
             int hit = 0;
-            foreach (var item in Numbers) 
+            foreach (var item in Numbers)
             {
                 Console.Write("{0,3}", item);
             }
@@ -104,12 +239,12 @@ namespace Schleifenuebung
             Console.WriteLine();
             foreach (var item in Treffer)
             {
-                Console.Write("{0} ", hit , hit++);
+                Console.Write("{0} ", hit, hit++);
                 Console.WriteLine("Richtige: {0} ", item);
             }
             Console.WriteLine();
             Console.WriteLine("Versuche: {0}", Versuche.ToString("0,00"));
-            Console.WriteLine("Enspricht: " + (2.5*Versuche).ToString("0,00") + " Euro");
+            Console.WriteLine("Enspricht: " + (2.5 * Versuche).ToString("0,00") + " Euro");
         }
         static void EuroJackpot(List<byte> Numbers, List<byte> Special)
         {
