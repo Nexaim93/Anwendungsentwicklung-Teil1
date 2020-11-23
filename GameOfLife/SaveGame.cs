@@ -6,6 +6,7 @@ namespace GameOfLife
 {
     class SaveGame
     {
-        public bool Field;
+        public string Description;
+        public bool[,] GetAktiveField;
     }
 }

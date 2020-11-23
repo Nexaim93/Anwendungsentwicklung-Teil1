@@ -9,6 +9,8 @@ namespace GameOfLife
         public static Stack<Scene> Scenes = new Stack<Scene>();
         static void Main()
         {
+            Console.CursorVisible = false;
+
             Scenes.Push(new Intro());
 
             do

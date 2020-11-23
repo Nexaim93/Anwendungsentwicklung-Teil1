@@ -1,31 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace GameOfLife
 {
-    class GameField
+    internal class GameField
     {
-        private bool[,] FieldTrue;
-        private bool[,] FieldFalse;
-        private bool FieldToRead;
+        bool[,] FieldTrue; // Das Erste Feld als Bool mit Y , X Bool
+        bool[,] FieldFalse; // Das Zweite Feld als Bool mit Y , X Bool
+        bool FieldToRead; // 
 
-        public GameField()
-        {
-            FieldFalse = new bool[20, 30];
-            FieldTrue = new bool[20, 30];
-            FieldToRead = false;
-
-            Random rndGen = new Random();
-
-            for (int Y = 0; Y < FieldFalse.GetLength(0); Y++)
-            {
-                for (int X = 0; X < FieldFalse.GetLength(1); X++)
-                {
-                    FieldFalse[Y, X] = rndGen.NextDouble() > 0.8d;
-                }
-            }
-        }
 
         public bool[,] GetAktiveField
         {
@@ -43,12 +29,25 @@ namespace GameOfLife
                 FieldTrue[Y, X] = value;
             }
         }
-
-        public void Reset(int FieldX,int FieldY)
+        public GameField()
         {
-            FieldTrue = new bool[FieldX,FieldY];
-            FieldFalse = new bool[FieldX,FieldY];
-            // ToDo: Einige Felder zum Leben erwecken!
+            FieldFalse = new bool[20, 30];
+            FieldTrue = new bool[20, 30];
+            FieldToRead = false;
+
+            Reset();
+        }
+
+        public void Reset()
+        {
+            Random rndGen = new();
+            for (int Y = 0; Y < FieldFalse.GetLength(0); Y++)
+            {
+                for (int X = 0; X < FieldFalse.GetLength(1); X++)
+                {
+                    FieldFalse[Y, X] = rndGen.NextDouble() > 0.8d;
+                }
+            }
         }
 
         public void Update()
@@ -57,33 +56,70 @@ namespace GameOfLife
             {
                 for (int X = 0; X < FieldFalse.GetLength(1); X++)
                 {
-
-
-
-                    if (FieldFalse[Y, X])
+                    if (GetAktiveField[Y, X])
                     {
                         // lebender bereich
-                        // wenn weniger als 2 lebende angrenzen auf tot setzen
-                        // wenn mehr als 3 lebende angrenzen auf tot setzen
+                        if (aliveNeighbors(X, Y) is < 2 or > 3) //C# 9 vergleich mit zwei bedingungen
+                        {
+                            // wenn weniger als 2 lebende angrenzen auf tot setzen
+                            // wenn mehr als 3 lebende angrenzen auf tot setzen
+                            SetValue(X, Y, false);
+                        }
+                        else
+                            SetValue(X, Y, true);                  
 
                     }
                     else
                     {
                         // toter bereich
-                        // wenn exakt 3 lebende angrenzen auf lebend setzen
+                        if (aliveNeighbors(X, Y) == 3)
+                        {
+                            // wenn exakt 3 lebende angrenzen auf lebend setzen
+                            SetValue(X, Y, true);
+                        }
+                        else
+                            SetValue(X, Y, false);
 
                     }
                 }
             }
+            FieldToRead = !FieldToRead;
+        }
+
+        private int aliveNeighbors(int x, int y)
+        {
+            int living = 0;
+            for (int row = y - 1; row < y + 2; row++)
+            {
+                for (int col = x - 1; col < x + 2; col++)
+                {
+                    if (row > -1 && col > -1 && // ignorieren von zu kleinen zählern
+                        row < GetAktiveField.GetLength(0) && col < GetAktiveField.GetLength(1) && // ignorieren von zu grossen zählern
+                        !(row == y && col == x) && GetAktiveField[row, col])
+                    {
+                        living++;
+                    }
+                }
+            }
+            return living;
         }
 
         public bool LoadGame(string FileName)
         {
-            return true;
-        }
+            if (! File.Exists(FileName))
+            {
+                return false;
+            }
 
-        public bool SaveGame(string FileName)
-        {
+            XmlSerializer serializer = new(typeof(SaveGame));
+            SaveGame sg;
+
+            using (Stream file = new FileStream(FileName, FileMode.Open, FileAccess.Read))
+            {
+                sg = (SaveGame)serializer.Deserialize(file);
+            }
+            FieldFalse = sg.GetAktiveField;
+
             return true;
         }
 

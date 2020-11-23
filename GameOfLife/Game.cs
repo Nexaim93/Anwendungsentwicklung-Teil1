@@ -7,10 +7,12 @@ namespace GameOfLife
     internal class Game : Scene
     {
         readonly GameField logic;
+        DateTime lastLogicUpdate;
         public Game()
         {
             Console.ResetColor();
             Console.Clear();
+            lastLogicUpdate = DateTime.Now;
             logic = new();
         }
         public override void Update()
@@ -30,7 +32,15 @@ namespace GameOfLife
             if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape)
             {
                 Program.Scenes.Pop();
+                return;
             }
+
+            if ((DateTime.Now - lastLogicUpdate).TotalMilliseconds > 500)
+            {
+                lastLogicUpdate = DateTime.Now;
+                logic.Update();
+            }
+
         }
     }
 }
