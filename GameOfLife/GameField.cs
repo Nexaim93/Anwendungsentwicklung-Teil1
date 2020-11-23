@@ -24,7 +24,7 @@ namespace GameOfLife
             {
                 FieldFalse[Y, X] = value;
             }
-            if (FieldToRead)
+            else
             {
                 FieldTrue[Y, X] = value;
             }
@@ -121,6 +121,21 @@ namespace GameOfLife
             FieldFalse = sg.GetAktiveField;
 
             return true;
+        }
+
+        public bool SaveGame(string FileName)
+        {
+            SaveGame sg = new();
+            sg.GetAktiveField = GetAktiveField;
+            sg.Description = "New Savegame" + DateTime.Now.ToString();
+
+            XmlSerializer serializer = new(typeof(SaveGame));
+
+            using (Stream file = new FileStream(FileName, FileMode.Create, FileAccess.Write))
+            {
+                serializer.Serialize(file, sg);
+            }
+            return true; //TODO: immer true, exception abfangen und ggfs auf false returnen
         }
 
     }
