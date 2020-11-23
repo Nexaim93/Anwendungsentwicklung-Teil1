@@ -107,7 +107,9 @@ namespace Schleifenuebung
                         switch (SelectedButton)
                         {
                             case 0:
-                                Console.WriteLine("test 1");
+                                Console.WriteLine("Gib dein Namen ein: ");
+                                string Name = Console.ReadLine();
+                                Console.WriteLine("Herzlich willkomen: " + Name);
                                 break;
                             case 1:
                                 Console.WriteLine("test 2");

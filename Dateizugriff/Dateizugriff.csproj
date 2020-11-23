@@ -6,7 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="Logo.txt">
+    <None Update="BeispielText.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="GespeicherterHund.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
